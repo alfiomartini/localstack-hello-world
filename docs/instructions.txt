@@ -9,3 +9,8 @@ aws s3 ls --profile localstack
 unset AWS_ENDPOINT_URL
 curl https://idqo1iq2gj.execute-api.localhost.localstack.cloud:4566/localstack/hello 
 curl http://localhost.localstack.cloud:4566/_localstack/health | jq '.'
+aws sts get-caller-identity --profile aws-alfio-hotmail
+aws s3 ls s3://aws-sam-cli-managed-default-samclisourcebucket-bfddf237 --recursive --profile localstack
+aws s3 cp s3://aws-sam-cli-managed-default-samclisourcebucket-bfddf237/sam/localstack/adf50980ee6a7ae9e4a6224f492e6fc5 ./downloaded-lambda.zip --profile localstack
+aws s3 cp s3://ws-sam-cli-managed-default-samclisourcebucket-bfddf237/sam/localstack/d51028ad521fc4ca06ea250abbdda311.template ./downloaded-template.yaml --profile localstack
+
