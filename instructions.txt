@@ -1,0 +1,11 @@
+localstack start -d (starts the container at port 4566)
+sam deploy --config-file samconfig-localstack.toml --profile localstack
+aws lambda invoke --function-name local-HelloWorld --payload '{}' lambda-localstack.json
+cat lambda-localstack.json | jq '.'
+aws cloudformation list-stacks --profile localstack | jq '.'
+aws cloudformation delete-stack --stack-name local-hello-js --profile localstack
+aws s3 mb s3://sam-localstack-bucket --profile localstack
+aws s3 ls --profile localstack
+unset AWS_ENDPOINT_URL
+curl https://idqo1iq2gj.execute-api.localhost.localstack.cloud:4566/localstack/hello 
+curl http://localhost.localstack.cloud:4566/_localstack/health | jq '.'

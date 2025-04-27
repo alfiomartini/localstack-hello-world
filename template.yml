@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  Env:
+    Type: String
+    Default: dev
+    AllowedPattern: "^[a-zA-Z0-9-_]+$"
+    Description: The stage for the deployment (e.g., dev, prod)
+
+Resources:
+  HelloWorldFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Sub "${Env}-HelloWorld"
+      Runtime: nodejs20.x
+      CodeUri: dist/
+      Handler: helloworld.handler
+      Description: A hello world function
+      MemorySize: 128
+      Timeout: 5
+      Environment:
+        Variables:
+          NODE_OPTIONS: "--enable-source-maps"
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:ListAllMyBuckets
+              Resource: "*"
+      Events:
+        HelloWorldApi:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+            RestApiId: !Ref HelloWorldApi
+
+  HelloWorldApi:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      StageName: !Ref Env
+      Cors:
+        AllowHeaders:
+          - Content-Type
+          - X-Amz-Date
+          - Authorization
+          - X-Api-Key
+        AllowOrigin: "'*'"
+        AllowMethods: "'OPTIONS,GET,POST'"
+
+Outputs:
+  HelloWorldApiUrl:
+    Description: "URL for the HelloWorld API"
+    Value: !Sub "https://${HelloWorldApi}.execute-api.${AWS::Region}.amazonaws.com/${Env}"
+  HelloWorldFunction:
+    Description: Hello World Lambda Function ARN
+    Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value: !GetAtt HelloWorldFunctionRole.Arn
