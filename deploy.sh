@@ -25,6 +25,11 @@ if [ ! -f "$config_file" ]; then
 fi
 
 # Build
+echo "Building application bundle..."
+if ! npm run build; then
+  echo "Error: npm run build failed."
+  exit 1
+fi
 echo "Building with Env=$Env, config=$config_file..."
 if ! sam build --parameter-overrides Env="$Env" --config-file "$config_file"; then
   echo "Error: Build failed."
