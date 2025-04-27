@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # This script builds and deploys a SAM application using a specified environment.
 # Usage:
 # ./deploy.sh <env>
