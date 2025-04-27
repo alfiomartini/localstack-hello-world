@@ -22,8 +22,8 @@ This project demonstrates a simple AWS Lambda application using the AWS Serverle
 
 1. Clone the repository:
     ```bash
-    git clone <repository-url>
-    cd SamHelloWorld
+    git clone `https://github.com/alfiomartini/localstack-hello-world.git`
+    cd `localstack-hello-world`
     ```
 
 2. Install dependencies:
