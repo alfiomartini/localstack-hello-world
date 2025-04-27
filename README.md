@@ -1,4 +1,4 @@
-# SAM Hello World
+# Localstack Hello World
 
 This project demonstrates a simple AWS Lambda application using the AWS Serverless Application Model (SAM). It includes a basic "Hello, World!" function deployed locally using LocalStack.
 
