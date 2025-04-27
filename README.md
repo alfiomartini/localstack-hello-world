@@ -22,7 +22,7 @@ This project demonstrates a simple AWS Lambda application using the AWS Serverle
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/alfiomartini/localstack-hello-world.git`
+    git clone https://github.com/alfiomartini/localstack-hello-world.git
     cd localstack-hello-world
     ```
 
