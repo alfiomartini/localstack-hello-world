@@ -44,7 +44,7 @@ This project demonstrates a simple AWS Lambda application using the AWS Serverle
     aws_access_key_id=test
     aws_secret_access_key=test
     ```
-    4. Start LocalStack:
+4. Start LocalStack:
     ```bash
     localstack start -d
     ```
