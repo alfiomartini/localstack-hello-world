@@ -14,3 +14,18 @@ aws s3 ls s3://aws-sam-cli-managed-default-samclisourcebucket-bfddf237 --recursi
 aws s3 cp s3://aws-sam-cli-managed-default-samclisourcebucket-bfddf237/sam/localstack/adf50980ee6a7ae9e4a6224f492e6fc5 ./downloaded-lambda.zip --profile localstack
 aws s3 cp s3://ws-sam-cli-managed-default-samclisourcebucket-bfddf237/sam/localstack/d51028ad521fc4ca06ea250abbdda311.template ./downloaded-template.yaml --profile localstack
 
+docker inspect localstack --format '{{json .NetworkSettings.Networks }}' | jq
+
+docker run -d \
+  --name postgres \
+  --network localstack_default \
+  -e POSTGRES_DB=localstack \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=password \
+  postgres:15
+
+docker exec -it localstack bash
+apt install postgresql-client
+psql -h postgres -U postgres -d localstack
+
+docker network rm localstack_default
